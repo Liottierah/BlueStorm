@@ -3,79 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BlueStorm</title>
+    <title>BS</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Press+Start+2P&display=swap');
         
         body {
-            margin: 0; padding: 0; height: 100vh;
-            background: #0b001a; color: #80fff0;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: radial-gradient(circle at center, #1a0033 0%, #00040f 65%);
+            color: #80fff0;
             font-family: 'Orbitron', sans-serif;
-            overflow: hidden; position: relative;
-            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .stars {
-            position: absolute; inset: 0;
-            background: radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1px),
-                        radial-gradient(circle, rgba(120,220,255,0.65) 1.5px, transparent 2px);
-            background-size: 70px 70px, 130px 130px;
-            animation: starsDrift 75s linear infinite;
-            opacity: 0.45; z-index: 1;
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1px),
+                radial-gradient(circle, rgba(140,230,255,0.55) 1.5px, transparent 2px),
+                radial-gradient(circle, rgba(255,180,255,0.35) 1px, transparent 1.5px);
+            background-size: 75px 75px, 140px 140px, 210px 210px;
+            animation: starsDrift 85s linear infinite;
+            opacity: 0.65;
+            z-index: 1;
         }
 
-        @keyframes starsDrift { from { background-position: 0 0; } to { background-position: 400px 400px; } }
+        @keyframes starsDrift {
+            from { background-position: 0 0, 0 0, 0 0; }
+            to   { background-position: 350px 280px, 220px 320px, 400px 180px; }
+        }
 
         .container {
-            position: relative; z-index: 10;
-            width: 90%; max-width: 740px;
-            background: rgba(10, 5, 40, 0.9);
-            border: 3px solid #80fff0;
-            box-shadow: 0 0 90px #80fff0, 0 0 170px #00ffff, 0 0 270px rgba(255,0,220,0.75),
-                        inset 0 0 60px rgba(128,255,240,0.3);
-            padding: 65px 45px; border-radius: 22px; text-align: center;
+            position: relative;
+            z-index: 10;
+            width: 88%;
+            max-width: 660px;
+            background: rgba(7, 5, 26, 0.72);
+            border: 2px solid rgba(128, 255, 240, 0.75);
+            box-shadow: 
+                0 0 85px rgba(128, 255, 240, 0.7),
+                0 0 180px rgba(200, 100, 255, 0.45),
+                inset 0 0 70px rgba(128, 255, 240, 0.2);
+            padding: 65px 40px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
         }
 
         h1 {
-            font-size: 4.3em; font-weight: 900; letter-spacing: 16px;
-            background: linear-gradient(90deg, #80fff0, #00ffff, #ff00ff, #80fff0);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 50px #80fff0;
-            animation: titlePulse 2s ease-in-out infinite alternate;
+            font-size: 5.2em;
+            font-weight: 900;
+            letter-spacing: 22px;
+            background: linear-gradient(90deg, #80fff0, #b0f8ff, #e0a0ff, #80fff0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 45px rgba(128, 255, 240, 0.9);
+            margin: 0 0 8px 0;
+            animation: cosmicGlow 4s ease-in-out infinite alternate;
         }
 
-        @keyframes titlePulse {
+        @keyframes cosmicGlow {
             from { filter: brightness(1) hue-rotate(0deg); }
-            to { filter: brightness(1.4) hue-rotate(30deg); }
+            to   { filter: brightness(1.3) hue-rotate(15deg); }
         }
 
         .subtitle {
-            color: #ff88ee; font-size: 1.22em; margin-bottom: 55px;
-            text-shadow: 0 0 20px #ff00dd; line-height: 1.45;
+            color: #a0ffe0;
+            font-size: 1.05em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .tagline {
+            color: #77ddff;
+            font-size: 0.95em;
+            margin-bottom: 55px;
+            letter-spacing: 2px;
         }
 
         button {
-            padding: 26px 110px; font-size: 1.8em;
-            background: transparent; color: #80fff0;
-            border: 5px solid #80fff0; cursor: pointer;
-            box-shadow: 0 0 60px #80fff0, 0 0 130px rgba(255,0,220,0.7);
-            transition: all 0.4s; text-transform: uppercase;
-            letter-spacing: 6px; font-weight: 900;
+            padding: 24px 110px;
+            font-size: 1.7em;
+            background: transparent;
+            color: #80fff0;
+            border: 3px solid #80fff0;
+            cursor: pointer;
+            box-shadow: 0 0 55px rgba(128, 255, 240, 0.8);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 700;
         }
 
         button:hover {
-            background: #80fff0; color: #0b001a;
-            transform: scale(1.08); box-shadow: 0 0 110px #80fff0, 0 0 200px #ff00ff;
+            background: rgba(128, 255, 240, 0.12);
+            transform: scale(1.07);
+            box-shadow: 0 0 100px rgba(128, 255, 240, 1);
         }
 
-        #abortBtn { background: rgba(255,30,30,0.2); border-color: #ff5555; color: #ffaaaa; display: none; }
+        #abortBtn {
+            margin-top: 18px;
+            background: rgba(255, 50, 50, 0.18);
+            border-color: #ff7777;
+            color: #ffbbbb;
+            display: none;
+        }
 
         #log {
-            margin-top: 50px; padding: 25px;
-            background: rgba(0,5,25,0.95); border: 2px solid #80fff0;
-            height: 360px; overflow-y: auto; text-align: left;
-            font-family: 'Press Start 2P', system-ui; font-size: 0.93em;
-            line-height: 1.75; display: none;
+            margin-top: 55px;
+            padding: 24px;
+            background: rgba(2, 8, 28, 0.88);
+            border: 1px solid rgba(128, 255, 240, 0.35);
+            height: 330px;
+            overflow-y: auto;
+            text-align: left;
+            font-family: 'Press Start 2P', system-ui;
+            font-size: 0.89em;
+            line-height: 1.75;
+            display: none;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -83,11 +135,9 @@
     <div class="stars"></div>
     
     <div class="container">
-        <h1>BLUESTORM</h1>
-        <div class="subtitle">
-            Ultimate Dynamic Blur Storm Respring Utility<br>
-            9999+ real-time layers • Heavy Safari pressure
-        </div>
+        <h1>BS</h1>
+        <div class="subtitle">BLUESTORM</div>
+        <div class="tagline">IN-SAFARI RESPRING TOOL</div>
         
         <button id="runBtn">LAUNCH STORM</button>
         <button id="abortBtn">ABORT STORM</button>
@@ -102,7 +152,7 @@
 
         function addLog(text, color = '#80fff0') {
             const time = new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-            logElement.innerHTML += `<span style="color:#666">[${time}] </span><span style="color:${color}">${text}</span><br>`;
+            logElement.innerHTML += `<span style="color:#555">[${time}] </span><span style="color:${color}">${text}</span><br>`;
             logElement.scrollTop = logElement.scrollHeight;
         }
 
@@ -111,17 +161,17 @@
             logElement.style.display = 'block';
             logElement.innerHTML = '';
 
-            addLog("Preparing Storm...", "#ffff00");
-            await new Promise(r => setTimeout(r, 700));
+            addLog("Initializing cosmic protocol...", "#ffff00");
+            await new Promise(r => setTimeout(r, 600));
 
-            addLog("Downloading BlueStorm engine...", "#ffaa00");
+            addLog("Loading BlueStorm engine...", "#a0f0ff");
 
             const script = document.createElement('script');
-            script.src = "https://raw.githubusercontent.com/Liottierah/BlueStorm/refs/heads/main/bluestorm.js";
+            script.src = "https://liottierah.github.io/BlueStorm/bluestorm.js";
             
             script.onload = () => {
-                addLog("Engine loaded successfully", "#00ff88");
-                addLog("Running Storm...", "#ff0088");
+                addLog("Engine synchronized", "#00ff88");
+                addLog("Launching BlueStorm...", "#ff0088");
                 abortBtn.style.display = 'inline-block';
                 
                 if (typeof window.runBlurStorm === 'function') {
@@ -130,7 +180,7 @@
             };
 
             script.onerror = () => {
-                addLog("Failed to load engine. Try from real Safari.", "#ff0000");
+                addLog("Engine load failed", "#ff4444");
                 runBtn.disabled = false;
             };
 
@@ -138,7 +188,7 @@
         }
 
         function abortStorm() {
-            addLog("ABORTING STORM...", "#ff4444");
+            addLog("EMERGENCY ABORT ACTIVATED...", "#ff6666");
             if (typeof window.stopBlurStorm === 'function') window.stopBlurStorm();
             runBtn.disabled = false;
             abortBtn.style.display = 'none';

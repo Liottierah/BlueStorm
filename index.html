@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BlurStorm</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #0b001a;
+            color: #80fff0;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stars {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1px),
+                radial-gradient(circle, rgba(120,220,255,0.6) 1.5px, transparent 2px);
+            background-size: 70px 70px, 130px 130px;
+            animation: starsDrift 80s linear infinite;
+            opacity: 0.45;
+            z-index: 1;
+        }
+
+        @keyframes starsDrift {
+            from { background-position: 0 0; }
+            to { background-position: 400px 400px; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 720px;
+            background: rgba(10, 5, 40, 0.88);
+            border: 3px solid #80fff0;
+            box-shadow: 
+                0 0 80px #80fff0,
+                0 0 160px #00ffff,
+                0 0 260px rgba(255, 0, 220, 0.7),
+                inset 0 0 50px rgba(128, 255, 240, 0.25);
+            padding: 65px 45px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4.2em;
+            font-weight: 900;
+            letter-spacing: 14px;
+            background: linear-gradient(90deg, #80fff0, #00ffff, #ff00ff, #80fff0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 50px #80fff0;
+            margin: 0 0 10px 0;
+            animation: titlePulse 2.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titlePulse {
+            from { filter: brightness(1) hue-rotate(0deg); }
+            to   { filter: brightness(1.35) hue-rotate(25deg); }
+        }
+
+        .subtitle {
+            color: #ff88ee;
+            font-size: 1.25em;
+            margin-bottom: 50px;
+            text-shadow: 0 0 20px #ff00dd;
+            line-height: 1.4;
+        }
+
+        button {
+            padding: 26px 130px;
+            font-size: 1.85em;
+            background: transparent;
+            color: #80fff0;
+            border: 5px solid #80fff0;
+            cursor: pointer;
+            box-shadow: 0 0 60px #80fff0, 0 0 120px rgba(255, 0, 220, 0.6);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 900;
+        }
+
+        button:hover {
+            background: #80fff0;
+            color: #0b001a;
+            transform: scale(1.1);
+            box-shadow: 0 0 100px #80fff0, 0 0 180px #ff00ff;
+        }
+
+        #log {
+            margin-top: 55px;
+            padding: 25px;
+            background: rgba(0, 5, 25, 0.95);
+            border: 2px solid #80fff0;
+            height: 360px;
+            overflow-y: auto;
+            text-align: left;
+            font-family: 'Press Start 2P', system-ui;
+            font-size: 0.93em;
+            line-height: 1.75;
+            display: none;
+            box-shadow: inset 0 0 40px rgba(0, 255, 255, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <h1>BLURSTORM</h1>
+        <div class="subtitle">
+            Ultimate Safari Blur Storm Respring Utility<br>
+            9999+ dynamic blur layers • Real memory + worker pressure
+        </div>
+        
+        <button id="runBtn">LAUNCH STORM</button>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        const logElement = document.getElementById('log');
+        const runBtn = document.getElementById('runBtn');
+
+        function addLog(text, color = '#80fff0') {
+            const time = new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+            logElement.innerHTML += `<span style="color:#666">[${time}] </span><span style="color:${color}">${text}</span><br>`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        async function loadAndRunStorm() {
+            if (runBtn.disabled) return;
+            runBtn.disabled = true;
+
+            logElement.style.display = 'block';
+            logElement.innerHTML = '';
+
+            addLog("Preparing Storm...", "#ffff00");
+            await new Promise(r => setTimeout(r, 800));
+
+            addLog("Downloading BlurStorm engine...", "#ffaa00");
+            
+            // Загружаем JS с твоей raw ссылки
+            const script = document.createElement('script');
+            script.src = "https://raw.githubusercontent.com/Liottierah/BlueStorm/refs/heads/main/bluestorm.js";
+            script.onload = () => {
+                addLog("Engine loaded successfully", "#00ff88");
+                addLog("Running Storm...", "#ff0088");
+                
+                // Запускаем шторм
+                if (typeof window.runBlurStorm === 'function') {
+                    window.runBlurStorm();
+                } else {
+                    addLog("Error: Engine not loaded correctly", "#ff0000");
+                }
+            };
+            
+            script.onerror = () => {
+                addLog("Failed to load engine. Check internet connection.", "#ff0000");
+                runBtn.disabled = false;
+            };
+
+            document.head.appendChild(script);
+        }
+
+        window.onload = () => {
+            runBtn.onclick = loadAndRunStorm;
+        };
+    </script>
+</body>
+</html>
